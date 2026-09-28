@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Duty — Leave Management</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Duty</h1>
+    <span class="topbar-sub">Leave Management</span>
+  </header>
+
+  <nav id="navBar" class="navbar"></nav>
+
+  <main class="container container-wide">
+    <div id="noCompanyNotice" class="alert alert-error" hidden>
+      Add a company first (Companies tab) before managing leave.
+    </div>
+    <div id="alertBox" class="alert" hidden></div>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Leave Types</h2>
+        <button class="btn btn-primary" onclick="openAddType()">+ Add Leave Type</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Name</th><th>Days / Year</th><th></th></tr></thead>
+        <tbody id="typeTableBody"><tr><td colspan="3" class="empty">Loading...</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="panel" style="margin-top: 20px;">
+      <div class="panel-header">
+        <h2>Leave Requests</h2>
+        <button class="btn btn-primary" onclick="openAddRequest()">+ Apply for Leave</button>
+      </div>
+
+      <div class="toolbar">
+        <select id="statusFilter">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Type</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Days</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="requestTableBody"><tr><td colspan="7" class="empty">Loading...</td></tr></tbody>
+      </table>
+      <div class="pagination" id="pagination"></div>
+    </section>
+  </main>
+
+  <!-- Leave Type modal -->
+  <div id="typeModal" class="modal-overlay" hidden>
+    <div class="modal modal-small">
+      <h2 id="typeModalTitle">Add Leave Type</h2>
+      <form id="typeForm">
+        <input type="hidden" id="typeId" />
+        <label>Name *</label>
+        <input type="text" id="typeName" required maxlength="100" placeholder="e.g. Casual, Sick, Earned" />
+        <span class="field-error" id="err-typeName"></span>
+
+        <label>Days per Year</label>
+        <input type="number" id="typeDays" min="0" step="1" value="0" />
+        <span class="field-error" id="err-typeDays"></span>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelTypeBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="typeDeleteModal" class="modal-overlay" hidden>
+    <div class="modal modal-small">
+      <h2>Delete Leave Type?</h2>
+      <p id="typeDeleteMessage"></p>
+      <div class="modal-actions">
+        <button type="button" id="cancelTypeDeleteBtn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="confirmTypeDeleteBtn" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leave Request modal -->
+  <div id="requestModal" class="modal-overlay" hidden>
+    <div class="modal">
+      <h2>Apply for Leave</h2>
+      <form id="requestForm">
+        <label>Employee *</label>
+        <select id="reqEmployee" required></select>
+        <span class="field-error" id="err-employee_id"></span>
+
+        <label>Leave Type *</label>
+        <select id="reqLeaveType" required></select>
+        <span class="field-error" id="err-leave_type_id"></span>
+        <small class="hint" id="balanceHint"></small>
+
+        <label>From *</label>
+        <input type="date" id="reqStart" required />
+        <span class="field-error" id="err-start_date"></span>
+
+        <label>To *</label>
+        <input type="date" id="reqEnd" required />
+        <span class="field-error" id="err-end_date"></span>
+
+        <label>Reason</label>
+        <input type="text" id="reqReason" maxlength="255" />
+
+        <div class="modal-actions">
+          <button type="button" id="cancelRequestBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Decision modal (approve/reject) -->
+  <div id="decisionModal" class="modal-overlay" hidden>
+    <div class="modal modal-small">
+      <h2 id="decisionTitle">Approve Leave</h2>
+      <form id="decisionForm">
+        <label>Note (optional)</label>
+        <input type="text" id="decisionNote" maxlength="255" />
+        <div class="modal-actions">
+          <button type="button" id="cancelDecisionBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="confirmDecisionBtn">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>renderNav('leave');</script>
+  <script src="js/leave.js"></script>
+</body>
+</html>

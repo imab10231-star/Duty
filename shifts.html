@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Duty — Shift Management</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Duty</h1>
+    <span class="topbar-sub">Shift Management</span>
+  </header>
+
+  <nav id="navBar" class="navbar"></nav>
+
+  <main class="container">
+    <div id="noCompanyNotice" class="alert alert-error" hidden>
+      Add a company first (Companies tab) before adding shifts.
+    </div>
+    <div id="alertBox" class="alert" hidden></div>
+
+    <div class="toolbar">
+      <button id="addBtn" class="btn btn-primary">+ Add Shift</button>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Break (min)</th>
+          <th>Grace (min)</th>
+          <th>Employees</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="shiftTableBody">
+        <tr><td colspan="7" class="empty">Loading...</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Add/Edit Modal -->
+  <div id="shiftModal" class="modal-overlay" hidden>
+    <div class="modal">
+      <h2 id="modalTitle">Add Shift</h2>
+      <form id="shiftForm">
+        <input type="hidden" id="shiftId" />
+
+        <label>Shift Name *</label>
+        <input type="text" id="name" required maxlength="100" placeholder="e.g. Morning, General, Night" />
+        <span class="field-error" id="err-name"></span>
+
+        <label>Start Time *</label>
+        <input type="time" id="start_time" required />
+        <span class="field-error" id="err-start_time"></span>
+
+        <label>End Time *</label>
+        <input type="time" id="end_time" required />
+        <span class="field-error" id="err-end_time"></span>
+        <small class="hint">If end time is earlier than start time, it's treated as an overnight shift.</small>
+
+        <label>Break Duration (minutes)</label>
+        <input type="number" id="break_minutes" min="0" step="1" value="60" />
+        <span class="field-error" id="err-break_minutes"></span>
+
+        <label>Late Grace Period (minutes)</label>
+        <input type="number" id="grace_minutes" min="0" step="1" value="0" />
+        <span class="field-error" id="err-grace_minutes"></span>
+        <small class="hint">Minutes after start time before an employee is marked late.</small>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation -->
+  <div id="deleteModal" class="modal-overlay" hidden>
+    <div class="modal modal-small">
+      <h2>Delete Shift?</h2>
+      <p id="deleteMessage"></p>
+      <div class="modal-actions">
+        <button type="button" id="cancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>renderNav('shifts');</script>
+  <script src="js/shifts.js"></script>
+</body>
+</html>

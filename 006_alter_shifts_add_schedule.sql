@@ -1,0 +1,5 @@
+ALTER TABLE shifts
+  ADD COLUMN start_time TIME NOT NULL DEFAULT '09:00:00' AFTER name,
+  ADD COLUMN end_time TIME NOT NULL DEFAULT '18:00:00' AFTER start_time,
+  ADD COLUMN break_minutes INT NOT NULL DEFAULT 60 AFTER end_time,
+  ADD COLUMN grace_minutes INT NOT NULL DEFAULT 0 AFTER break_minutes;

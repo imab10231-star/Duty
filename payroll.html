@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Duty — Payroll & Salary</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Duty</h1>
+    <span class="topbar-sub">Payroll & Salary</span>
+  </header>
+
+  <nav id="navBar" class="navbar"></nav>
+
+  <main class="container container-wide">
+    <div id="noCompanyNotice" class="alert alert-error" hidden>
+      Add a company first (Companies tab) before running payroll.
+    </div>
+    <div id="alertBox" class="alert" hidden></div>
+
+    <div class="toolbar">
+      <label class="inline-label">Month
+        <select id="monthSelect">
+          <option value="1">January</option><option value="2">February</option>
+          <option value="3">March</option><option value="4">April</option>
+          <option value="5">May</option><option value="6">June</option>
+          <option value="7">July</option><option value="8">August</option>
+          <option value="9">September</option><option value="10">October</option>
+          <option value="11">November</option><option value="12">December</option>
+        </select>
+      </label>
+      <label class="inline-label">Year
+        <input type="number" id="yearInput" min="2000" style="width: 80px;" />
+      </label>
+      <span class="spacer"></span>
+      <button id="generateBtn" class="btn btn-primary">Generate Payroll</button>
+    </div>
+
+    <p class="hint">
+      Generating computes each active employee's attendance/leave for the selected month and creates
+      a draft payslip. Finalized payslips are locked and won't be touched by re-generating.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Basic</th>
+          <th>Present</th>
+          <th>Absent</th>
+          <th>Half-day</th>
+          <th>Leave</th>
+          <th>OT (hrs)</th>
+          <th>Absent Deduction</th>
+          <th>OT Amount</th>
+          <th>Bonus</th>
+          <th>Other Deduction</th>
+          <th>Net Payable</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="payrollTableBody">
+        <tr><td colspan="14" class="empty">Select a month/year and click "Generate Payroll".</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Edit modal (bonus / other deduction / overtime amount) -->
+  <div id="editModal" class="modal-overlay" hidden>
+    <div class="modal modal-small">
+      <h2>Edit Payslip</h2>
+      <form id="editForm">
+        <input type="hidden" id="editId" />
+        <label>Overtime Amount</label>
+        <input type="number" id="editOvertime" min="0" step="0.01" />
+
+        <label>Bonus</label>
+        <input type="number" id="editBonus" min="0" step="0.01" />
+
+        <label>Other Deduction</label>
+        <input type="number" id="editDeduction" min="0" step="0.01" />
+
+        <span class="field-error" id="err-edit"></span>
+        <div class="modal-actions">
+          <button type="button" id="cancelEditBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>renderNav('payroll');</script>
+  <script src="js/payroll.js"></script>
+</body>
+</html>

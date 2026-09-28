@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Duty — Department & Designation</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Duty</h1>
+    <span class="topbar-sub">Department & Designation</span>
+  </header>
+
+  <nav id="navBar" class="navbar"></nav>
+
+  <main class="container">
+    <div id="noCompanyNotice" class="alert alert-error" hidden>
+      Add a company first (Companies tab) before adding departments or designations.
+    </div>
+    <div id="alertBox" class="alert" hidden></div>
+
+    <div class="split">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Departments</h2>
+          <button class="btn btn-primary" onclick="departmentManager.openAdd()">+ Add Department</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Employees</th><th></th></tr></thead>
+          <tbody id="departmentTableBody"><tr><td colspan="3" class="empty">Loading...</td></tr></tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Designations</h2>
+          <button class="btn btn-primary" onclick="designationManager.openAdd()">+ Add Designation</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Employees</th><th></th></tr></thead>
+          <tbody id="designationTableBody"><tr><td colspan="3" class="empty">Loading...</td></tr></tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <!-- Shared Add/Edit modal (used by whichever manager opened it) -->
+  <div id="lookupModal" class="modal-overlay" hidden>
+    <div class="modal modal-small">
+      <h2 id="lookupModalTitle">Add</h2>
+      <form id="lookupForm">
+        <label id="lookupNameLabel">Name *</label>
+        <input type="text" id="lookupName" required maxlength="100" />
+        <span class="field-error" id="lookupNameError"></span>
+        <div class="modal-actions">
+          <button type="button" id="lookupCancelBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shared Delete confirmation -->
+  <div id="lookupDeleteModal" class="modal-overlay" hidden>
+    <div class="modal modal-small">
+      <h2>Delete?</h2>
+      <p id="lookupDeleteMessage"></p>
+      <div class="modal-actions">
+        <button type="button" id="lookupCancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="lookupConfirmDeleteBtn" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>renderNav('department-designation');</script>
+  <script src="js/lookup-manager.js"></script>
+  <script src="js/department-designation.js"></script>
+</body>
+</html>

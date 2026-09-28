@@ -1,0 +1,18 @@
+{
+  "name": "duty",
+  "version": "0.1.0",
+  "description": "Duty - HRIS SaaS",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "migrate": "node src/config/migrate.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.10.0",
+    "node-zklib": "^1.3.0"
+  }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Duty — Dashboard</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Duty</h1>
+    <span class="topbar-sub">Admin Dashboard</span>
+  </header>
+
+  <nav id="navBar" class="navbar"></nav>
+
+  <main class="container container-wide">
+    <div id="noCompanyNotice" class="alert alert-error" hidden>
+      Add a company first (Companies tab) to see the dashboard.
+    </div>
+    <div id="alertBox" class="alert" hidden></div>
+
+    <div class="card-grid" id="cardGrid">
+      <div class="dash-card">
+        <div class="dash-card-label">Employees</div>
+        <div class="dash-card-value" id="cardEmployees">—</div>
+        <div class="dash-card-sub" id="cardEmployeesSub"></div>
+        <a href="employees.html" class="btn-link">Manage →</a>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-label">Today's Attendance</div>
+        <div class="dash-card-value" id="cardAttendance">—</div>
+        <div class="dash-card-sub" id="cardAttendanceSub"></div>
+        <a href="attendance.html" class="btn-link">View →</a>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-label">Pending Leave Requests</div>
+        <div class="dash-card-value" id="cardLeave">—</div>
+        <div class="dash-card-sub">Awaiting approval</div>
+        <a href="leave.html" class="btn-link">Review →</a>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-label">This Month's Payroll</div>
+        <div class="dash-card-value" id="cardPayroll">—</div>
+        <div class="dash-card-sub" id="cardPayrollSub"></div>
+        <a href="payroll.html" class="btn-link">Open →</a>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-label">Devices</div>
+        <div class="dash-card-value" id="cardDevices">—</div>
+        <div class="dash-card-sub" id="cardDevicesSub"></div>
+        <a href="devices.html" class="btn-link">Manage →</a>
+      </div>
+
+      <div class="dash-card">
+        <div class="dash-card-label">Reports</div>
+        <div class="dash-card-value">📊</div>
+        <div class="dash-card-sub">Attendance, leave, payroll & employee exports</div>
+        <a href="reports.html" class="btn-link">Open →</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script>renderNav('dashboard');</script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

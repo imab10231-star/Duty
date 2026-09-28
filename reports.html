@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Duty — Reports</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Duty</h1>
+    <span class="topbar-sub">Reports</span>
+  </header>
+
+  <nav id="navBar" class="navbar"></nav>
+
+  <main class="container container-wide">
+    <div id="noCompanyNotice" class="alert alert-error" hidden>
+      Add a company first (Companies tab) before running reports.
+    </div>
+    <div id="alertBox" class="alert" hidden></div>
+
+    <div class="tabs" id="reportTabs">
+      <button class="tab-btn active" data-tab="attendance">Attendance</button>
+      <button class="tab-btn" data-tab="leave">Leave</button>
+      <button class="tab-btn" data-tab="payroll">Payroll</button>
+      <button class="tab-btn" data-tab="employees">Employees</button>
+    </div>
+
+    <!-- Attendance Report -->
+    <section class="report-panel" id="panel-attendance">
+      <div class="toolbar">
+        <label class="inline-label">From <input type="date" id="attFrom" /></label>
+        <label class="inline-label">To <input type="date" id="attTo" /></label>
+        <span class="spacer"></span>
+        <button class="btn btn-secondary" onclick="downloadCsv('attendance')">Download CSV</button>
+        <button class="btn btn-primary" onclick="loadAttendanceReport()">Run</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Employee ID</th><th>Name</th><th>Present</th><th>Absent</th><th>Half Day</th><th>Leave</th><th>Late</th><th>OT (hrs)</th></tr></thead>
+        <tbody id="attendanceTableBody"><tr><td colspan="8" class="empty">Pick a date range and click Run.</td></tr></tbody>
+      </table>
+    </section>
+
+    <!-- Leave Report -->
+    <section class="report-panel" id="panel-leave" hidden>
+      <div class="toolbar">
+        <label class="inline-label">From <input type="date" id="leaveFrom" /></label>
+        <label class="inline-label">To <input type="date" id="leaveTo" /></label>
+        <select id="leaveStatus">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <span class="spacer"></span>
+        <button class="btn btn-secondary" onclick="downloadCsv('leave')">Download CSV</button>
+        <button class="btn btn-primary" onclick="loadLeaveReport()">Run</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Status</th></tr></thead>
+        <tbody id="leaveTableBody"><tr><td colspan="6" class="empty">Pick a date range and click Run.</td></tr></tbody>
+      </table>
+    </section>
+
+    <!-- Payroll Report -->
+    <section class="report-panel" id="panel-payroll" hidden>
+      <div class="toolbar">
+        <label class="inline-label">Month
+          <select id="payrollMonth">
+            <option value="1">January</option><option value="2">February</option>
+            <option value="3">March</option><option value="4">April</option>
+            <option value="5">May</option><option value="6">June</option>
+            <option value="7">July</option><option value="8">August</option>
+            <option value="9">September</option><option value="10">October</option>
+            <option value="11">November</option><option value="12">December</option>
+          </select>
+        </label>
+        <label class="inline-label">Year <input type="number" id="payrollYear" style="width: 80px;" /></label>
+        <span class="spacer"></span>
+        <button class="btn btn-secondary" onclick="downloadCsv('payroll')">Download CSV</button>
+        <button class="btn btn-primary" onclick="loadPayrollReport()">Run</button>
+      </div>
+      <p class="hint" id="payrollTotals"></p>
+      <table class="data-table">
+        <thead><tr><th>Employee</th><th>Basic</th><th>Present</th><th>Absent</th><th>Leave</th><th>Net Payable</th><th>Status</th></tr></thead>
+        <tbody id="payrollTableBody"><tr><td colspan="7" class="empty">Pick a month/year and click Run.</td></tr></tbody>
+      </table>
+    </section>
+
+    <!-- Employee Report -->
+    <section class="report-panel" id="panel-employees" hidden>
+      <div class="toolbar">
+        <select id="empStatus">
+          <option value="">All statuses</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+        <span class="spacer"></span>
+        <button class="btn btn-secondary" onclick="downloadCsv('employees')">Download CSV</button>
+        <button class="btn btn-primary" onclick="loadEmployeeReport()">Run</button>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Employee ID</th><th>Name</th><th>Department</th><th>Designation</th><th>Shift</th><th>Joined</th><th>Status</th></tr></thead>
+        <tbody id="employeesTableBody"><tr><td colspan="7" class="empty">Click Run.</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script>renderNav('reports');</script>
+  <script src="js/reports.js"></script>
+</body>
+</html>

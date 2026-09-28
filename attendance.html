@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Duty — Attendance</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Duty</h1>
+    <span class="topbar-sub">Attendance Management</span>
+  </header>
+
+  <nav id="navBar" class="navbar"></nav>
+
+  <main class="container container-wide">
+    <div id="noCompanyNotice" class="alert alert-error" hidden>
+      Add a company first (Companies tab) before viewing attendance.
+    </div>
+    <div id="alertBox" class="alert" hidden></div>
+
+    <div class="toolbar">
+      <label class="inline-label">Date
+        <input type="date" id="dateInput" />
+      </label>
+      <button id="todayBtn" class="btn btn-secondary">Today</button>
+      <span class="spacer"></span>
+      <button id="addPunchBtn" class="btn btn-primary">+ Record Punch</button>
+    </div>
+
+    <p class="hint">
+      No attendance device connected yet — punches are entered manually below.
+      Once ZKTeco Integration is built, device punches will land here automatically.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>Name</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Worked</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="summaryTableBody">
+        <tr><td colspan="7" class="empty">Loading...</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <!-- Record Punch Modal -->
+  <div id="punchModal" class="modal-overlay" hidden>
+    <div class="modal">
+      <h2>Record Punch</h2>
+      <form id="punchForm">
+        <label>Employee *</label>
+        <select id="punchEmployee" required></select>
+        <span class="field-error" id="err-employee"></span>
+
+        <label>Date & Time *</label>
+        <input type="datetime-local" id="punchTime" required />
+        <span class="field-error" id="err-time"></span>
+
+        <label>Type *</label>
+        <select id="punchType" required>
+          <option value="in">Check-in (IN)</option>
+          <option value="out">Check-out (OUT)</option>
+        </select>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelPunchBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Day Detail Modal (raw punches for one employee/day) -->
+  <div id="detailModal" class="modal-overlay" hidden>
+    <div class="modal">
+      <h2 id="detailModalTitle">Punches</h2>
+      <table class="data-table" id="detailTable">
+        <thead><tr><th>Time</th><th>Type</th><th>Source</th><th></th></tr></thead>
+        <tbody id="detailTableBody"></tbody>
+      </table>
+      <div class="modal-actions">
+        <button type="button" id="closeDetailBtn" class="btn btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>renderNav('attendance');</script>
+  <script src="js/attendance.js"></script>
+</body>
+</html>
